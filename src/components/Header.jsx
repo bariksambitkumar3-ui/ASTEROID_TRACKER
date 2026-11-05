@@ -1,4 +1,4 @@
-import { ChartNoAxesColumn, CloudSun, Home, LogOut, Orbit } from 'lucide-react';
+import { Bot, ChartNoAxesColumn, CloudSun, Home, LogOut, Orbit } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
 
 const TABS = [
@@ -6,9 +6,10 @@ const TABS = [
   { id: 'asteroids', label: 'Asteroids', icon: ChartNoAxesColumn, section: 'asteroid-catalog' },
   { id: 'solar', label: '3D Solar System', icon: Orbit },
   { id: 'weather-space', label: 'Weather & Space', icon: CloudSun, section: 'weather-space' },
+  { id: 'ai', label: 'AI Assistant', icon: Bot },
 ];
 
-export default function Header({ view, onNavigate }) {
+export default function Header({ view, onNavigate, onToggleAI, aiOpen }) {
   const { user, logout } = useAuth();
   return (
     <aside className="site-sidebar">
@@ -22,18 +23,41 @@ export default function Header({ view, onNavigate }) {
         </div>
 
         <nav className="sidebar-nav" aria-label="Main navigation">
-          {TABS.map(({ id, label, icon: Icon }) => (
-            <button
-              key={id}
-              onClick={() => onNavigate(id === 'solar' ? 'solar' : TABS.find((tab) => tab.id === id)?.section)}
-              className={`sidebar-link ${((id === 'solar' && view === 'solar') || (id !== 'solar' && view === 'dashboard' && id === 'hero')) ? 'is-active' : ''}`}
-              aria-label={label}
-              aria-current={((id === 'solar' && view === 'solar') || (id === 'hero' && view === 'dashboard')) ? 'page' : undefined}
-            >
-              <Icon className="h-4 w-4" />
-              <span>{label}</span>
-            </button>
-          ))}
+          {TABS.map(({ id, label, icon: Icon }) => {
+            const isAI = id === 'ai';
+            const isSolar = id === 'solar';
+            const isActive =
+              isAI
+                ? aiOpen
+                : (isSolar && view === 'solar') ||
+                  (!isSolar && view === 'dashboard' && id === 'hero');
+
+            return (
+              <button
+                key={id}
+                onClick={() => {
+                  if (isAI) {
+                    onToggleAI();
+                  } else if (isSolar) {
+                    onNavigate('solar');
+                  } else {
+                    onNavigate(TABS.find((t) => t.id === id)?.section);
+                  }
+                }}
+                className={`sidebar-link ${isActive ? 'is-active' : ''} ${isAI ? 'sidebar-link-ai' : ''}`}
+                aria-label={label}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <Icon className="h-4 w-4" />
+                <span>{label}</span>
+                {isAI && (
+                  <span className="ml-auto flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500/20 text-[9px] font-bold text-emerald-400">
+                    AI
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </nav>
 
         <div className="sidebar-footer">

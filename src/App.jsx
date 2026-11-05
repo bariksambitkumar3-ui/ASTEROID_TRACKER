@@ -5,11 +5,13 @@ import AuthPage from './pages/AuthPage.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Header from './components/Header.jsx';
 import SolarSystem3D from './components/SolarSystem3D.jsx';
+import AIAssistant from './components/AIAssistant.jsx';
 
 function Shell() {
   const { user, ready } = useAuth();
   const [view, setView] = useState('dashboard');
   const [pendingSection, setPendingSection] = useState(null);
+  const [aiOpen, setAiOpen] = useState(false);
 
   useEffect(() => {
     if (view === 'solar') {
@@ -37,7 +39,12 @@ function Shell() {
 
   return (
     <div className="app-shell min-h-screen md:flex">
-      <Header view={view} onNavigate={navigate} />
+      <Header
+        view={view}
+        onNavigate={navigate}
+        onToggleAI={() => setAiOpen((o) => !o)}
+        aiOpen={aiOpen}
+      />
       <main className="min-w-0 flex-1">
         {view === 'dashboard' && <Dashboard />}
         {view === 'solar' && (
@@ -46,6 +53,7 @@ function Shell() {
           </div>
         )}
       </main>
+      <AIAssistant open={aiOpen} onClose={() => setAiOpen(false)} />
     </div>
   );
 }

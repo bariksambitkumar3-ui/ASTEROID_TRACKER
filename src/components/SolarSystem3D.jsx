@@ -746,29 +746,16 @@ export default function SolarSystem3D() {
             </div>
 
             <div className="text-center shrink-0">
-              <div className="relative mx-auto flex items-center justify-center" style={{ width: 68, height: 68 }}>
-                {/* Circle around the asteroid moving always in an infinite loop with 360 rotation */}
-                <div
-                  className="absolute inset-0 rounded-full border-2 border-dashed pointer-events-none animate-spin"
-                  style={{
-                    borderColor: selectedThreat.hex,
-                    boxShadow: `0 0 14px ${selectedThreat.dimGlow}`,
-                    animationDuration: '6s',
-                  }}
-                />
-                {/* Asteroid rotating infinitely */}
-                <div
-                  className="rounded-full shadow-inner flex items-center justify-center font-bold text-xs animate-spin"
-                  style={{
-                    width: 48,
-                    height: 48,
-                    backgroundColor: selectedThreat.hex,
-                    boxShadow: `0 0 16px ${selectedThreat.glow}`,
-                    clipPath: 'polygon(20% 5%, 70% 0, 100% 35%, 90% 80%, 50% 100%, 8% 78%, 0 35%)',
-                    animationDuration: '14s',
-                  }}
-                />
-              </div>
+              <div
+                className="mx-auto rounded-full shadow-inner flex items-center justify-center font-bold text-xs"
+                style={{
+                  width: 52,
+                  height: 52,
+                  backgroundColor: selectedThreat.hex,
+                  boxShadow: `0 0 16px ${selectedThreat.glow}`,
+                  clipPath: 'polygon(20% 5%, 70% 0, 100% 35%, 90% 80%, 50% 100%, 8% 78%, 0 35%)',
+                }}
+              />
               <div className="mt-2 text-sm font-bold text-slate-100">{fmtNum(selected.diameter, 0)} m</div>
               <div className="text-[9px] uppercase tracking-widest text-slate-500">Est. Diameter</div>
             </div>

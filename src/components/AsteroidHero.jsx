@@ -92,7 +92,42 @@ export default function AsteroidHero() {
         <div className="hero-copy">
           <h1 className="hero-title">
             <span className="hero-title-white">Asteroid</span>
-            <span className="hero-title-red">Tracker</span>
+            <span className="hero-title-red hero-title-tracker-wrap">
+              Tracker
+              {/* Stylish curved SVG underline */}
+              <svg
+                className="hero-tracker-underline"
+                viewBox="0 0 320 18"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                preserveAspectRatio="none"
+              >
+                <defs>
+                  <linearGradient id="tracker-ul-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#ff2b3d" stopOpacity="0.1" />
+                    <stop offset="30%" stopColor="#ff2b3d" stopOpacity="1" />
+                    <stop offset="70%" stopColor="#dc2626" stopOpacity="1" />
+                    <stop offset="100%" stopColor="#8d0c1b" stopOpacity="0.3" />
+                  </linearGradient>
+                </defs>
+                {/* Main curve */}
+                <path
+                  d="M 4 10 Q 80 2 160 8 Q 240 14 316 6"
+                  stroke="url(#tracker-ul-grad)"
+                  strokeWidth="2.5"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+                {/* Thin shimmer line */}
+                <path
+                  d="M 20 12 Q 100 5 180 10 Q 260 15 300 9"
+                  stroke="rgba(255,43,61,0.25)"
+                  strokeWidth="1"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
           </h1>
           <div className="hero-rule" aria-hidden="true" />
           <p className="hero-mantra">
