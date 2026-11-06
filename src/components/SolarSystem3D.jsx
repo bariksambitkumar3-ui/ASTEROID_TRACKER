@@ -598,7 +598,7 @@ export default function SolarSystem3D() {
   const selectedThreat = selected ? (THREAT_CONFIG[selected.threatLevel] || THREAT_CONFIG.safe) : THREAT_CONFIG.safe;
 
   return (
-    <div className="panel relative h-[82vh] min-h-[600px] overflow-hidden !rounded-2xl bg-black border border-white/10 shadow-2xl">
+    <div className="panel relative h-[78vh] min-h-[460px] sm:min-h-[550px] md:min-h-[600px] overflow-hidden !rounded-2xl bg-black border border-white/10 shadow-2xl">
       <div ref={mountRef} className="absolute inset-0 cursor-grab active:cursor-grabbing" />
 
       {/* Top Banner: Real-time NASA Status & Refresh */}
@@ -688,7 +688,7 @@ export default function SolarSystem3D() {
 
       {/* Asteroid Watch Panel (Floating HUD) */}
       {selected && watchOpen && (
-        <div className="absolute left-4 top-16 z-20 w-[min(94%,340px)] rounded-2xl border border-white/15 bg-[#0b0d12]/95 p-5 shadow-2xl backdrop-blur">
+        <div className="absolute left-2 sm:left-4 top-14 sm:top-16 z-20 w-[calc(100%-1rem)] sm:w-[340px] max-w-[340px] max-h-[calc(100%-4.5rem)] overflow-y-auto rounded-2xl border border-white/15 bg-[#0b0d12]/95 p-4 sm:p-5 shadow-2xl backdrop-blur">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Radio className={`h-5 w-5 ${selectedThreat.twText}`} />
@@ -841,36 +841,36 @@ export default function SolarSystem3D() {
       </div>
 
       {/* Bottom Time / Speed Bar */}
-      <div className="absolute bottom-3 left-1/2 z-10 flex w-[min(96%,760px)] -translate-x-1/2 flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-xl border border-white/10 bg-[#0b0d12]/85 px-4 py-2 backdrop-blur shadow-2xl">
-        <div className="flex items-center gap-3">
+      <div className="absolute bottom-2 sm:bottom-3 left-1/2 z-10 flex w-[calc(100%-1rem)] sm:w-[min(96%,760px)] -translate-x-1/2 flex-wrap items-center justify-between gap-x-3 gap-y-1.5 rounded-xl border border-white/10 bg-[#0b0d12]/90 px-2.5 py-1.5 sm:px-4 sm:py-2 backdrop-blur shadow-2xl">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={goLive}
-            className={`flex items-center gap-2 text-xs font-bold tracking-widest ${isLive ? 'text-emerald-400' : 'text-slate-400 hover:text-white'}`}
+            className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-bold tracking-widest ${isLive ? 'text-emerald-400' : 'text-slate-400 hover:text-white'}`}
           >
-            <span className={`h-2 w-2 rounded-full ${isLive ? 'bg-emerald-400' : 'bg-slate-500'}`} />
-            LIVE TIME
+            <span className={`h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full ${isLive ? 'bg-emerald-400' : 'bg-slate-500'}`} />
+            LIVE
           </button>
-          <div className="font-mono text-sm text-slate-100">
+          <div className="font-mono text-xs sm:text-sm text-slate-100">
             {clock.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }).toUpperCase()}
           </div>
-          <div className="font-mono text-xs text-slate-400">{clock.toLocaleTimeString('en-US')}</div>
+          <div className="hidden font-mono text-xs text-slate-400 sm:block">{clock.toLocaleTimeString('en-US')}</div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             onClick={togglePause}
-            className="rounded p-1.5 text-slate-300 hover:bg-white/10"
+            className="rounded p-1 sm:p-1.5 text-slate-300 hover:bg-white/10"
             aria-label={paused ? 'Play' : 'Pause'}
             title={paused ? 'Play simulation' : 'Pause simulation'}
           >
-            {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+            {paused ? <Play className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> : <Pause className="h-3.5 w-3.5 sm:h-4 sm:w-4" />}
           </button>
-          <div className="flex gap-1">
+          <div className="flex gap-0.5 sm:gap-1">
             {SPEEDS.map((s, i) => (
               <button
                 key={s.label}
                 onClick={() => setSpeed(i)}
-                className={`rounded px-2 py-1 text-[11px] font-semibold transition ${
+                className={`rounded px-1.5 py-0.5 sm:px-2 sm:py-1 text-[10px] sm:text-[11px] font-semibold transition ${
                   i === speedIdx ? 'bg-crimson-red text-white' : 'text-slate-400 hover:bg-white/10'
                 }`}
               >

@@ -345,98 +345,100 @@ body {
 
 @media (max-width: 767px) {
   .site-sidebar {
-    position: sticky;
-    top: 0;
-    width: 58px;
-    height: 100svh;
-    flex: 0 0 58px;
-    border-right: 1px solid rgba(151, 164, 189, .16);
-    border-bottom: 0;
+    display: none !important;
   }
 
-  .site-sidebar::after,
-  .brand-caption,
-  .sidebar-footer {
-    display: none;
-  }
-
-  .sidebar-inner {
-    align-items: center;
-    gap: 20px;
-    padding: 18px 5px;
-  }
-
-  .brand-lockup {
-    width: 100%;
-    padding: 0 0 14px;
-    border-bottom: 1px solid rgba(226, 31, 51, .38);
-    box-shadow: none;
-  }
-
-  .brand-mark {
-    width: 38px;
-    height: 36px;
-  }
-
-  .brand-mark::before {
-    width: 40px;
-    height: 15px;
-    border-width: 2px;
-  }
-
-  .brand-mark svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .brand-name {
-    display: none;
-  }
-
-  .sidebar-nav {
-    width: 100%;
-    align-items: center;
-    gap: 8px;
-    margin: 0;
-  }
-
-  .sidebar-link {
-    width: 48px;
-    min-height: 46px;
-    justify-content: center;
-    padding: 0;
-  }
-
-  .sidebar-link span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    clip-path: inset(50%);
-  }
-
-  .sidebar-link.is-active::before {
-    top: 7px;
-    right: auto;
-    bottom: 7px;
-    left: -1px;
-    width: 4px;
-    height: auto;
-    border-radius: 0 4px 4px 0;
+  .app-shell {
+    flex-direction: column !important;
   }
 
   .dashboard-page,
   main {
     min-width: 0;
+    width: 100%;
     flex: 1;
   }
 
+  /* Full responsive mobile hero with ample breathing room */
   .asteroid-hero {
-    height: auto;
-    min-height: 0;
-    aspect-ratio: 1148 / 768;
+    min-height: 480px;
+    height: 72svh;
+    max-height: 560px;
+    aspect-ratio: auto !important;
+  }
+
+  .hero-stage {
+    --u: calc(max(100cqw, 420px) / 1148);
+  }
+
+  .hero-copy > * {
+    left: 20px !important;
+  }
+
+  .hero-title {
+    top: 50px !important;
+    font-size: clamp(34px, 9vw, 54px) !important;
+    line-height: 1.05 !important;
+  }
+
+  .hero-tracker-underline {
+    bottom: -10px !important;
+    height: 14px !important;
+  }
+
+  .hero-rule {
+    top: 170px !important;
+    width: min(300px, 80%) !important;
+  }
+
+  .hero-mantra {
+    top: 192px !important;
+    font-size: 11px !important;
+    letter-spacing: .25em !important;
+  }
+
+  .hero-tagline {
+    top: 226px !important;
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    max-width: 280px;
+  }
+
+  .hero-cta {
+    top: 300px !important;
+    width: auto !important;
+    height: 44px !important;
+    padding: 0 22px !important;
+    font-size: 13.5px !important;
+    gap: 10px !important;
+  }
+
+  .hero-live-badge {
+    top: 14px !important;
+    right: 14px !important;
+    min-width: 76px !important;
+    min-height: 24px !important;
+    font-size: 10px !important;
+  }
+}
+
+/* Tablet adjustments (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .site-sidebar {
+    width: 190px !important;
+    flex: 0 0 190px !important;
+  }
+  .sidebar-inner {
+    padding: 20px 10px !important;
+  }
+  .sidebar-link {
+    font-size: 13px !important;
+    padding: 10px 10px !important;
+    gap: 10px !important;
+  }
+  .asteroid-hero {
+    min-height: 560px !important;
   }
 }
 
@@ -761,7 +763,9 @@ body {
   position: fixed;
   inset: 0;
   z-index: 200;
-  pointer-events: none;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  pointer-events: auto;
 }
 
 /* Slide-in panel from the right */
@@ -779,6 +783,13 @@ body {
   box-shadow: -8px 0 40px rgba(0, 0, 0, 0.6);
   z-index: 201;
   animation: ai-slide-in 0.25s ease-out;
+}
+
+@media (max-width: 640px) {
+  .ai-panel {
+    width: 100vw;
+    border-left: none;
+  }
 }
 
 @keyframes ai-slide-in {
@@ -916,7 +927,7 @@ body {
 /* Footer note */
 .ai-footer {
   text-align: center;
-  padding: 0.4rem 1rem 0.6rem;
+  padding: 0.4rem 1rem max(0.6rem, env(safe-area-inset-bottom, 0.6rem));
   font-size: 0.65rem;
   color: #374151;
   flex-shrink: 0;

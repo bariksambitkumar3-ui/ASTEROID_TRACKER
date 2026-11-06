@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { AlertTriangle, Eye, EyeOff, Lock, Mail, Orbit, Rocket, User, X } from 'lucide-react';
+import {
+  AlertTriangle, Eye, EyeOff, Lock, Mail, Orbit, Rocket, User, X,
+} from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
 
 /* ── Google colours for the branded button ── */
@@ -34,8 +36,6 @@ function GoogleModal({ onConfirm, onClose }) {
         <button onClick={onClose} className="absolute right-4 top-4 text-slate-500 hover:text-white transition" aria-label="Close">
           <X className="h-4 w-4" />
         </button>
-
-        {/* Google-style header */}
         <div className="mb-5 flex flex-col items-center text-center">
           <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow">
             <GoogleIcon />
@@ -44,42 +44,22 @@ function GoogleModal({ onConfirm, onClose }) {
           <h2 className="text-lg font-bold text-white">Google Account</h2>
           <p className="mt-1 text-xs text-slate-500">Enter the details linked to your Google account</p>
         </div>
-
         <div className="space-y-3">
           <div className="relative">
             <User className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
-            <input
-              className="input-dark"
-              placeholder="Full name"
-              value={gForm.name}
-              onChange={setF('name')}
-              autoFocus
-            />
+            <input className="input-dark" placeholder="Full name" value={gForm.name} onChange={setF('name')} autoFocus />
           </div>
           <div className="relative">
             <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
-            <input
-              className="input-dark"
-              type="email"
-              placeholder="Gmail address"
-              value={gForm.email}
-              onChange={setF('email')}
-            />
+            <input className="input-dark" type="email" placeholder="Gmail address" value={gForm.email} onChange={setF('email')} />
           </div>
-
           {gErr && (
             <p className="flex items-center gap-1.5 text-xs text-red-400">
               <AlertTriangle className="h-3.5 w-3.5 shrink-0" />{gErr}
             </p>
           )}
-
-          <button
-            type="button"
-            onClick={confirm}
-            className="mt-1 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#4285F4] hover:bg-[#3367d6] px-4 py-2.5 text-sm font-semibold text-white transition"
-          >
-            <GoogleIcon />
-            Continue with Google
+          <button type="button" onClick={confirm} className="mt-1 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#4285F4] hover:bg-[#3367d6] px-4 py-2.5 text-sm font-semibold text-white transition">
+            <GoogleIcon /> Continue with Google
           </button>
         </div>
       </div>
@@ -95,7 +75,6 @@ function PasswordStrength({ password }) {
   const hasNumber = /[0-9]/.test(password);
   const hasSpecial = /[^A-Za-z0-9]/.test(password);
   const score = (len >= 6 ? 1 : 0) + (len >= 10 ? 1 : 0) + (hasUpper ? 1 : 0) + (hasNumber ? 1 : 0) + (hasSpecial ? 1 : 0);
-
   const levels = [
     { label: 'Too short', color: '#ef4444' },
     { label: 'Weak', color: '#f97316' },
@@ -105,16 +84,11 @@ function PasswordStrength({ password }) {
     { label: 'Very strong', color: '#10b981' },
   ];
   const lvl = levels[Math.min(score, 5)];
-
   return (
     <div className="mt-1 space-y-1">
       <div className="flex gap-1">
         {[0, 1, 2, 3, 4].map((i) => (
-          <div
-            key={i}
-            className="h-1 flex-1 rounded-full transition-all"
-            style={{ background: i < score ? lvl.color : '#1e2030' }}
-          />
+          <div key={i} className="h-1 flex-1 rounded-full transition-all" style={{ background: i < score ? lvl.color : '#1e2030' }} />
         ))}
       </div>
       <p className="text-[11px]" style={{ color: lvl.color }}>{lvl.label}</p>
@@ -122,9 +96,9 @@ function PasswordStrength({ password }) {
   );
 }
 
-/* ══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
    Main AuthPage
-══════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════════════ */
 export default function AuthPage() {
   const { login, signup, loginWithGoogle } = useAuth();
   const [mode, setMode] = useState('login');
@@ -141,8 +115,11 @@ export default function AuthPage() {
     setError('');
     setBusy(true);
     try {
-      if (mode === 'login') await login(form);
-      else await signup(form);
+      if (mode === 'login') {
+        await login(form);
+      } else {
+        await signup(form);
+      }
     } catch (err) {
       setError(err.message || 'Something went wrong.');
     } finally {
@@ -163,7 +140,7 @@ export default function AuthPage() {
         <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-blood-red/20 blur-3xl" />
         <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-nasa-blue/10 blur-3xl" />
 
-        <div className="panel relative w-full max-w-md p-8 shadow-2xl shadow-black">
+        <div className="panel relative w-full max-w-md p-5 sm:p-8 shadow-2xl shadow-black">
           {/* Brand */}
           <div className="mb-6 flex flex-col items-center text-center">
             <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full border border-emerald-green/40 bg-black shadow-[0_0_20px_rgba(16,185,129,0.3)]">
@@ -258,12 +235,12 @@ export default function AuthPage() {
               {mode === 'signup' && <PasswordStrength password={form.password} />}
             </div>
 
-            {/* Requirements hint for sign-up */}
             {mode === 'signup' && (
               <ul className="text-[11px] text-slate-500 space-y-0.5 list-disc list-inside">
                 <li>Valid email address required</li>
                 <li>Full name required</li>
                 <li>Minimum 6 characters password</li>
+                <li>Registration confirmation sent to your email</li>
               </ul>
             )}
 

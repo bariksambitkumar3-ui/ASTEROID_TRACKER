@@ -38,17 +38,17 @@ function Shell() {
   if (!user) return <AuthPage />;
 
   return (
-    <div className="app-shell min-h-screen md:flex">
+    <div className="app-shell min-h-screen flex flex-col md:flex-row">
       <Header
         view={view}
         onNavigate={navigate}
         onToggleAI={() => setAiOpen((o) => !o)}
         aiOpen={aiOpen}
       />
-      <main className="min-w-0 flex-1">
+      <main className="min-w-0 flex-1 pb-20 md:pb-0">
         {view === 'dashboard' && <Dashboard />}
         {view === 'solar' && (
-          <div className="mx-auto max-w-[1600px] px-4 py-6">
+          <div className="mx-auto max-w-[1600px] px-2 sm:px-4 py-3 sm:py-6">
             <SolarSystem3D />
           </div>
         )}

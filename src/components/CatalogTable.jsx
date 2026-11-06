@@ -34,11 +34,11 @@ export default function CatalogTable({ list }) {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          <div className="relative">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2 w-full sm:w-auto">
+          <div className="relative flex-1 sm:flex-initial">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
             <input
-              className="input-dark !py-2 sm:w-56"
+              className="input-dark !py-2 w-full sm:w-56"
               placeholder="Search by name or class…"
               value={q}
               onChange={(e) => {
@@ -53,7 +53,7 @@ export default function CatalogTable({ list }) {
               setFilter(e.target.value);
               setPage(0);
             }}
-            className="rounded-lg border border-white/10 bg-black/60 px-3 py-2 text-sm text-slate-200 outline-none focus:border-emerald-500/70"
+            className="rounded-lg border border-white/10 bg-black/60 px-3 py-2 text-sm text-slate-200 outline-none focus:border-emerald-500/70 w-full sm:w-auto"
           >
             <option value="all">All Threat Levels</option>
             <option value="dangerous">🔴 Dangerous (Red)</option>
